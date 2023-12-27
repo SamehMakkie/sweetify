@@ -18,6 +18,7 @@ const config: Config = {
         "body-text": "#a3a3a3",
         "dark-primary": "#a17b39",
         "dark-secondary": "#1D1E21",
+        "lighter-dark-secondary": "#474951"
       }
     },
   },

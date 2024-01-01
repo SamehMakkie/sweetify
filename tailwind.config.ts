@@ -16,6 +16,7 @@ const config: Config = {
       },
       colors: {
         "body-text": "#a3a3a3",
+        "card-text": "#666666",
         "dark-primary": "#a17b39",
         "dark-secondary": "#1D1E21",
         "lighter-dark-secondary": "#474951"

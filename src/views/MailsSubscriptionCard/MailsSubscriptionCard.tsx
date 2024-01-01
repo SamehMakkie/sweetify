@@ -8,11 +8,11 @@ const MailsSubscriptionCard = () => {
         src="/mails-subscription.png"
         className="w-full h-full object-cover rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl"
       />
-      <div className="flex flex-col justify-center gap-5 p-32 md:p-20 lg:p-28 xl:p-32">
-        <h2 className="text-4xl text-primary">
+      <div className="flex flex-col justify-center gap-5 p-10 sm:p-32 md:p-20 lg:p-28 xl:p-32">
+        <h2 className="text-3xl sm:text-4xl text-primary">
           Subscribe to our newsletter
         </h2>
-        <p className="text-card-text">
+        <p className="text-sm sm:text-base text-card-text">
           If you're a foodie looking for delicious and easy-to-make recipes,
           subscribing to our mail letters is the perfect way to stay up-to-date
           with all our latest creations.

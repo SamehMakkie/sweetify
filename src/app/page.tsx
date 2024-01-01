@@ -1,6 +1,7 @@
 import HomePageSpacer from "@/components/Spacer/HomePageSpacer";
 import FeaturedSection from "@/views/FeaturedSection/FeaturedSection";
 import Hero from "@/views/Hero/Hero";
+import MailsSubscriptionCard from "@/views/MailsSubscriptionCard/MailsSubscriptionCard";
 import Navbar from "@/views/Navbar/Navbar";
 
 const featuredLists = [
@@ -126,6 +127,7 @@ export default function Home() {
         {featuredLists.map((featuredList) => (
           <FeaturedSection key={featuredList.title} {...featuredList} />
         ))}
+        <MailsSubscriptionCard />
       </HomePageSpacer>
     </section>
   );

@@ -1,10 +1,20 @@
 import Link from "next/link";
 import React from "react";
 
-const Logo = () => {
+interface IProps {
+  textSize?: string;
+  colSpan?: string;
+}
+
+const Logo: React.FC<IProps> = ({
+  textSize = "text-4xl",
+  colSpan = "col-span-3 sm:col-span-1",
+}) => {
   return (
-    <Link href={"/"} className={"col-span-3 sm:col-span-1"}>
-      <p className="text-primary text-4xl text-center sm:text-left">Sweetify</p>
+    <Link href={"/"} className={"w-full " + colSpan}>
+      <p className={"w-full text-primary text-center sm:text-left " + textSize}>
+        Sweetify
+      </p>
     </Link>
   );
 };

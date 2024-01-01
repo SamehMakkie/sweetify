@@ -1,5 +1,6 @@
 import HomePageSpacer from "@/components/Spacer/HomePageSpacer";
 import FeaturedSection from "@/views/FeaturedSection/FeaturedSection";
+import Footer from "@/views/Footer/Footer";
 import Hero from "@/views/Hero/Hero";
 import MailsSubscriptionCard from "@/views/MailsSubscriptionCard/MailsSubscriptionCard";
 import Navbar from "@/views/Navbar/Navbar";
@@ -129,6 +130,7 @@ export default function Home() {
         ))}
         <MailsSubscriptionCard />
       </HomePageSpacer>
+      <Footer />
     </section>
   );
 }

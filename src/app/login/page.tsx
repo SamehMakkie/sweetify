@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import FormsInput from "@/components/FormsInput/FormsInput";
 import PasswordInput from "@/components/FormsInput/PasswordInput/PasswordInput";
 import ResetPasswordLink from "@/components/ResetPasswordLink/ResetPasswordLink";
@@ -6,12 +6,46 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 import HaveAnAccount from "@/components/HaveAnAccount/HaveAnAccount";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    email: yup
+      .string()
+      .required("Email is required")
+      .email("Please enter a valid email address"),
+    password: yup.string().required("Password is required"),
+  })
+  .required();
 
 const page = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+
+  const data = watch();
 
   const togglePasswordVisibility = () => {
     setIsPasswordShown((prevValue) => !prevValue);
+  };
+
+  const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      handleSubmit(handleLogin);
+    }
+  };
+
+  const handleLogin = async () => {
+    const { email, password } = data;
+    console.log(data);
   };
 
   return (
@@ -23,12 +57,18 @@ const page = () => {
           </Link>
           <p className="text-body-text text-center text-xl">Login</p>
         </div>
-        <div className="flex flex-col w-full gap-8">
+        <form
+          noValidate
+          className="flex flex-col w-full gap-8"
+          onSubmit={handleSubmit(handleLogin)}>
           <FormsInput
             type="email"
             placeholder="Email"
             leftIcon={<MdOutlineEmail className="text-white" size={24} />}
             msgDetails="We will never share your email"
+            register={register("email")}
+            handleEnter={handleEnter}
+            error={errors.email}
           />
           <PasswordInput
             placeholder="Password"
@@ -36,9 +76,14 @@ const page = () => {
             togglePasswordVisibility={togglePasswordVisibility}
             leftIcon={<MdLockOutline className="text-white" size={24} />}
             msgDetails="Don't share your password with anyone 🤫"
+            register={register("password")}
+            handleEnter={handleEnter}
+            error={errors.password}
           />
           <ResetPasswordLink />
-          <button className="w-full btn rounded-full text-white btn-primary">
+          <button
+            type="submit"
+            className="w-full btn rounded-full text-white btn-primary">
             Login
           </button>
           <HaveAnAccount
@@ -46,7 +91,7 @@ const page = () => {
             msg="Don't have an account?"
             linkMsg="register"
           />
-        </div>
+        </form>
       </div>
     </div>
   );

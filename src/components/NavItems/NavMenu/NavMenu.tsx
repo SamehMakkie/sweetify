@@ -5,18 +5,17 @@ import { CiBoxList } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { MdExitToApp } from "react-icons/md";
+import { useAuth } from "@/context/AuthContext";
 
 const NavMenu = () => {
-  const user = {
-    username: "test",
-  };
+  const { user, logout } = useAuth();
   return (
     <div className="dropdown dropdown-hover dropdown-end">
       <div
         tabIndex={0}
         role="button"
         className="btn m-1 border-none bg-primary hover:bg-dark-primary rounded-full">
-        <Avatar username={user.username} />
+        <Avatar username={user.displayName} />
       </div>
       <ul
         tabIndex={0}
@@ -34,7 +33,7 @@ const NavMenu = () => {
           text="Account"
         />
         <hr className="w-full h-px bg-primary border-none" />
-        <NavMenuItems href="" Icon={MdExitToApp} text="Logout out" />
+        <NavMenuItems href="" Icon={MdExitToApp} text="Logout out" onClick={() => {logout()}} />
       </ul>
     </div>
   );

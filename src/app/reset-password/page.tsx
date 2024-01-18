@@ -1,11 +1,14 @@
 "use client";
 import FormsInput from "@/components/FormsInput/FormsInput";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { MdOutlineEmail } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import Toast from "@/components/Toasts/Toast";
 
 const schema = yup
   .object({
@@ -16,6 +19,11 @@ const schema = yup
   })
   .required();
 
+interface ToastProps {
+  state: "success" | "error";
+  msg: string;
+}
+
 const page = () => {
   const {
     register,
@@ -25,8 +33,27 @@ const page = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const { resetPassword } = useAuth();
+  const [toastMessage, setToastMessage] = useState<ToastProps>({
+    state: "error",
+    msg: "",
+  });
+  const router = useRouter();
 
   const data = watch();
+
+  function getFriendlyErrorMessage(errMessage: string) {
+    switch (errMessage) {
+      case "Firebase: Error (auth/invalid-email).":
+        return "Invalid email or password.";
+      case "Firebase: Error (auth/invalid-credential).":
+        return "Invalid email or password.";
+      case "Firebase: Error (auth/user-disabled).":
+        return "The user corresponding to the given email has been disabled.";
+      default:
+        return "Server error. Please try again later.";
+    }
+  }
 
   const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == "Enter") {
@@ -36,11 +63,26 @@ const page = () => {
 
   const handleResetPassword = async () => {
     const { email } = data;
-    console.log(data);
+    try {
+      await resetPassword(email);
+      setToastMessage({
+        state: "success",
+        msg: "A reset password email has been sent to your email address.",
+      });
+
+      // router.push("/login");
+    } catch (err: any) {
+      console.log(err.message);
+      setToastMessage({
+        state: "error",
+        msg: getFriendlyErrorMessage(err.message),
+      });
+    }
   };
 
   return (
     <div className="flex w-full min-h-screen justify-center items-center bg-secondary">
+      <Toast state={toastMessage.state} msg={toastMessage.msg} />
       <div className="flex flex-col max-w-md grow gap-10 bg-dark-secondary rounded-2xl shadow-lg p-10">
         <div className="flex flex-col w-full gap-2">
           <Link href="/">

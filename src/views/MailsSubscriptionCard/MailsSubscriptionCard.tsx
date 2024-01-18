@@ -35,7 +35,6 @@ const MailsSubscriptionCard = () => {
 
   const handleMailListSignup = async () => {
     const { email } = data;
-    console.log(data);
   };
 
   return (

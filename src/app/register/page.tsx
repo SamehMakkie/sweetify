@@ -13,6 +13,9 @@ import { FaPerson } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import Toast from "@/components/Toasts/Toast";
 
 const schema = yup
   .object({
@@ -58,8 +61,24 @@ const page = () => {
     resolver: yupResolver(schema),
   });
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const { user, signup, updateUserProfile } = useAuth();
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
 
   const data = watch();
+
+  function getFriendlyErrorMessage(errMessage: string) {
+    switch (errMessage) {
+      case "Firebase: Error (auth/email-already-in-use).":
+        return "Email already in use.";
+      case "Firebase: Error (auth/invalid-email).":
+        return "Invalid email.";
+      case "Firebase: Error (auth/weak-password).":
+        return "Password must be at least 8 characters long.";
+      default:
+        return "Server error. Please try again later.";
+    }
+  }
 
   const togglePasswordVisibility = () => {
     setIsPasswordShown((prevValue) => !prevValue);
@@ -73,11 +92,23 @@ const page = () => {
 
   const handleSignUp = async () => {
     const { firstName, lastName, email, password, confirmPass } = data;
-    console.log(data);
+
+    try {
+      await signup(email, password);
+      await updateUserProfile(
+        firstName + " " + lastName,
+        "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
+      );
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+      setErrorMessage(getFriendlyErrorMessage((err as Error).message));
+    }
   };
 
   return (
     <div className="flex w-full min-h-screen justify-center items-center bg-secondary">
+      <Toast state="error"msg={errorMessage} />
       <div className="flex flex-col max-w-md grow gap-10 bg-dark-secondary rounded-2xl shadow-lg p-10">
         <div className="flex flex-col w-full gap-2">
           <Link href="/">

@@ -1,4 +1,4 @@
-import HomePageSpacer from "@/components/Spacer/HomePageSpacer";
+import PageSpacer from "@/components/Spacer/PageSpacer";
 import FeaturedSection from "@/views/FeaturedSection/FeaturedSection";
 import Footer from "@/views/Footer/Footer";
 import Hero from "@/views/Hero/Hero";
@@ -124,12 +124,12 @@ export default function Home() {
     <section className="flex flex-col w-full min-h-screen items-center">
       <Navbar />
       <Hero />
-      <HomePageSpacer>
+      <PageSpacer isHomePage={true}>
         {featuredLists.map((featuredList) => (
           <FeaturedSection key={featuredList.title} {...featuredList} />
         ))}
         <MailsSubscriptionCard />
-      </HomePageSpacer>
+      </PageSpacer>
       <Footer />
     </section>
   );

@@ -38,7 +38,7 @@ const MailsSubscriptionCard = () => {
   };
 
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-dark-secondary drop-shadow-md rounded-2xl">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-dark-secondary drop-shadow-2xl rounded-2xl">
       <img
         src="/mails-subscription.png"
         className="w-full h-full object-cover rounded-t-2xl md:rounded-tr-none md:rounded-l-2xl"

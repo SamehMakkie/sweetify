@@ -17,7 +17,7 @@ interface IProps {
 const FeaturedSection: React.FC<IProps> = ({ title, recipes }) => {
   return (
     <div className="flex flex-col w-full gap-y-5">
-      <div className="w-full py-10 bg-dark-secondary rounded-2xl drop-shadow-md">
+      <div className="w-full py-10 bg-dark-secondary rounded-2xl drop-shadow-2xl">
         <div className="flex flex-col gap-3 justify-center items-center">
           <h2 className="text-4xl text-center text-primary">{title}</h2>
           <hr className="w-full max-w-xl border-primary" />

@@ -109,7 +109,7 @@ const page = () => {
   return (
     <div className="flex w-full min-h-screen justify-center items-center bg-secondary">
       <Toast state="error"msg={errorMessage} />
-      <div className="flex flex-col max-w-md grow gap-10 bg-dark-secondary rounded-2xl shadow-lg p-10">
+      <div className="flex flex-col max-w-md grow gap-10 bg-dark-secondary rounded-2xl drop-shadow-2xl p-10">
         <div className="flex flex-col w-full gap-2">
           <Link href="/">
             <h1 className="text-primary text-center text-4xl">Sweetify</h1>

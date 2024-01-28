@@ -1,11 +1,24 @@
 import FilterInput from "@/components/FilterInput/FilterInput";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useRef } from "react";
 import { MdOutlineTimer } from "react-icons/md";
 
-const SearchFilter = () => {
+interface IProps {
+  currentSearchString: string;
+}
+
+const SearchFilter: React.FC<IProps> = ({ currentSearchString }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
   const handleApply = () => {
-    console.log("APPLY");
+    const maxDuration = Number(inputRef.current?.value || "180");
+
+    router.push(
+      `/search?searchString=${currentSearchString}&maxDuration=${maxDuration}`
+    );
   };
+
   return (
     <aside className="col-span-1 w-full h-fit flex flex-col gap-4 px-7 py-12 rounded-2xl drop-shadow-2xl bg-dark-secondary">
       <div className="flex flex-col gap-2">
@@ -18,6 +31,7 @@ const SearchFilter = () => {
         placeholder="180 m"
         leftIcon={<MdOutlineTimer className="text-white" size={24} />}
         handleEnter={handleApply}
+        inputRef={inputRef}
       />
       <button
         className="btn w-full rounded-full btn-primary text-white"

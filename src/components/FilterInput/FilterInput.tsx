@@ -1,10 +1,11 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, RefObject } from "react";
 
 interface IProps {
   type?: string;
   placeholder: string;
   leftIcon: ReactNode;
-  handleEnter: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleEnter: () => void;
+  inputRef?: RefObject<HTMLInputElement>;
 }
 
 const FilterInput: React.FC<IProps> = ({
@@ -12,16 +13,23 @@ const FilterInput: React.FC<IProps> = ({
   placeholder,
   leftIcon,
   handleEnter,
+  inputRef,
 }) => {
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == "Enter") {
+      handleEnter();
+    }
+  };
   return (
     <div className="flex flex-col w-full gap-2">
       <div className="flex max-w-28 px-4 py-3 justify-center items-center gap-2 rounded-full bg-secondary hover:bg-lighter-dark-secondary ">
         {leftIcon}
         <input
+          ref={inputRef}
           type={type}
-          onKeyDown={handleEnter}
-          className="w-full number-input text-md bg-transparent outline-none placeholder:text-card-text text-white"
           placeholder={placeholder}
+          onKeyDown={handleEnterKey}
+          className="w-full number-input text-md bg-transparent outline-none placeholder:text-card-text text-white"
         />
       </div>
     </div>

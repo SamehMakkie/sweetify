@@ -19,3 +19,8 @@ input:-webkit-autofill:active {
 .number-input {
   -moz-appearance: textfield;
 }
+
+ul {
+  list-style-type: disc;
+  padding-left: 1em;
+}

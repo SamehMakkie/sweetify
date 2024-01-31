@@ -19,7 +19,7 @@ const NavMenu = () => {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] menu p-8 shadow bg-dark-secondary rounded-box w-56  sm:w-64 text-white gap-1.5">
+        className="wn-content z-[1] menu p-8 shadow bg-dark-secondary rounded-box w-56  sm:w-64 text-white gap-1.5">
         <NavMenuItems href="/user/my-list" Icon={CiBoxList} text="My list" />
         <NavMenuItems
           href="/user/liked-list"

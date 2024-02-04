@@ -1,5 +1,5 @@
 import PageSpacer from "@/components/Spacer/PageSpacer";
-import FeaturedSection from "@/views/FeaturedSection/FeaturedSection";
+import ListSection from "@/views/ListSection/ListSection";
 import Footer from "@/views/Footer/Footer";
 import Hero from "@/views/Hero/Hero";
 import MailsSubscriptionCard from "@/views/MailsSubscriptionCard/MailsSubscriptionCard";
@@ -126,7 +126,7 @@ export default function Home() {
       <Hero />
       <PageSpacer isHomePage={true}>
         {featuredLists.map((featuredList) => (
-          <FeaturedSection key={featuredList.title} {...featuredList} />
+          <ListSection key={featuredList.title} {...featuredList} />
         ))}
         <MailsSubscriptionCard />
       </PageSpacer>

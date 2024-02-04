@@ -22,7 +22,6 @@ const NotLoggedInNavItems = () => {
       <Link href={"/login"}>
         <IconBtn Icon={CiUser} />
       </Link>
-      
       </div>
     </>
   );

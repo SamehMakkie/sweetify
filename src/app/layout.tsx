@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-secondary">
       <body className={alice.className}>
-        <AuthContextProvider>{children}</AuthContextProvider>
+          <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>
   );

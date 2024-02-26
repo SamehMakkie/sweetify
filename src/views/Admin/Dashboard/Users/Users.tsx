@@ -30,10 +30,10 @@ const Users = () => {
 
   return (
     <div className="w-full flex flex-col p-10 rounded-3xl gap-5">
-      <div className="flex justify-center items-center p-8 rounded-3xl bg-dark-secondary">
+      <div className="flex justify-center items-center p-8 rounded-3xl bg-dark-secondary drop-shadow-2xl">
         <h1 className="text-primary text-3xl ">Users</h1>
       </div>
-      <div className="flex flex-col gap-3 p-10 justify-center items-center rounded-3xl bg-dark-secondary overflow-hidden">
+      <div className="flex flex-col gap-3 p-10 justify-center items-center rounded-3xl bg-dark-secondary drop-shadow-2xl overflow-hidden">
         <UsersSearch
           searchString={searchString}
           setSearchString={setSearchString}

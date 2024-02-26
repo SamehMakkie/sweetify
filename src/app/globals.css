@@ -24,3 +24,8 @@ ul {
   list-style-type: disc;
   padding-left: 1em;
 }
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}

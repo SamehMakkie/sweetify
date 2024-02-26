@@ -1,19 +1,17 @@
+import CenteredSectionHeading from "@/components/CenteredSectionHeading/CenteredSectionHeading";
 import Footer from "@/views/Footer/Footer";
 import Navbar from "@/views/Navbar/Navbar";
-import RecipeHeading from "@/views/Recipe/RecipeHeading/RecipeHeading";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const AboutPage = () => {
   return (
-    <section className="flex flex-col w-full min-h-screen items-center">
+    <div className="flex flex-col w-full min-h-screen items-center">
       <Navbar />
       <section className="flex flex-col w-full py-16  items-center">
         <main className="flex flex-col w-full max-w-3xl gap-5">
-          <div className="flex flex-col p-5 rounded-2xl bg-dark-secondary drop-shadow-2xl">
-            <h1 className="text-5xl text-primary text-center">About</h1>
-          </div>
+          <CenteredSectionHeading title="About" />
           <div className="rounded-3xl overflow-hidden">
             <Image
               src="/cake2.png"
@@ -42,7 +40,7 @@ const AboutPage = () => {
         </main>
       </section>
       <Footer />
-    </section>
+    </div>
   );
 };
 

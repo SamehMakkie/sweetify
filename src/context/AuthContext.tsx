@@ -72,7 +72,15 @@ export const AuthContextProvider = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, idToken, login, signup, logout, updateUserProfile, resetPassword }}>
+      value={{
+        user,
+        idToken,
+        login,
+        signup,
+        logout,
+        updateUserProfile,
+        resetPassword,
+      }}>
       {loading ? (
         <div className="w-screen h-screen flex justify-center items-center">
           <span className="loading loading-infinity loading-lg text-primary"></span>

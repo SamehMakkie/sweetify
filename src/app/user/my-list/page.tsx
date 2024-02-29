@@ -1,5 +1,6 @@
 import React from "react";
 import ListSection from "@/views/ListSection/ListSection";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 
 const data = {
   title: "My list",
@@ -72,7 +73,11 @@ const data = {
 };
 
 const page = () => {
-  return <ListSection title={data.title} recipes={data.recipes} />;
+  return (
+    <ProtectedRoute>
+      <ListSection title={data.title} recipes={data.recipes} />
+    </ProtectedRoute>
+  );
 };
 
 export default page;

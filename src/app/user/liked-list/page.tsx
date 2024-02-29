@@ -1,5 +1,6 @@
 import React from "react";
 import ListSection from "@/views/ListSection/ListSection";
+import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 
 const data = {
   title: "Liked list",
@@ -72,7 +73,15 @@ const data = {
 };
 
 const page = () => {
-  return <ListSection title={data.title} recipes={data.recipes} showHeartIcon={true} />;
+  return (
+    <ProtectedRoute>
+      <ListSection
+        title={data.title}
+        recipes={data.recipes}
+        showHeartIcon={true}
+      />
+    </ProtectedRoute>
+  );
 };
 
 export default page;

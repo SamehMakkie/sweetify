@@ -16,6 +16,7 @@ import * as yup from "yup";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Toast from "@/components/Toasts/Toast";
+import { toast } from "react-toastify";
 
 const schema = yup
   .object({
@@ -61,8 +62,7 @@ const page = () => {
     resolver: yupResolver(schema),
   });
   const [isPasswordShown, setIsPasswordShown] = useState(false);
-  const { user, signup, updateUserProfile } = useAuth();
-  const [errorMessage, setErrorMessage] = useState("");
+  const { signup, updateUserProfile } = useAuth();
   const router = useRouter();
 
   const data = watch();
@@ -99,16 +99,16 @@ const page = () => {
         firstName + " " + lastName,
         "https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"
       );
+      toast.success("Account created successfully");
       router.push("/");
     } catch (err) {
       console.log(err);
-      setErrorMessage(getFriendlyErrorMessage((err as Error).message));
+      toast.error(getFriendlyErrorMessage((err as Error).message));
     }
   };
 
   return (
     <div className="flex w-full min-h-screen justify-center items-center bg-secondary">
-      <Toast state="error"msg={errorMessage} />
       <div className="flex flex-col max-w-md grow gap-10 bg-dark-secondary rounded-2xl drop-shadow-2xl p-10">
         <div className="flex flex-col w-full gap-2">
           <Link href="/">

@@ -9,6 +9,7 @@ import * as yup from "yup";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import Toast from "@/components/Toasts/Toast";
+import { toast } from "react-toastify";
 
 const schema = yup
   .object({
@@ -34,10 +35,6 @@ const page = () => {
     resolver: yupResolver(schema),
   });
   const { resetPassword } = useAuth();
-  const [toastMessage, setToastMessage] = useState<ToastProps>({
-    state: "error",
-    msg: "",
-  });
   const router = useRouter();
 
   const data = watch();
@@ -65,24 +62,17 @@ const page = () => {
     const { email } = data;
     try {
       await resetPassword(email);
-      setToastMessage({
-        state: "success",
-        msg: "A reset password email has been sent to your email address.",
-      });
+      toast.success("A reset password email has been sent to your email address.");
 
-      // router.push("/login");
+      router.push("/login");
     } catch (err: any) {
       console.log(err.message);
-      setToastMessage({
-        state: "error",
-        msg: getFriendlyErrorMessage(err.message),
-      });
+      toast.error(getFriendlyErrorMessage(err.message));
     }
   };
 
   return (
     <div className="flex w-full min-h-screen justify-center items-center bg-secondary">
-      <Toast state={toastMessage.state} msg={toastMessage.msg} />
       <div className="flex flex-col max-w-md grow gap-10 bg-dark-secondary rounded-2xl drop-shadow-2xl p-10">
         <div className="flex flex-col w-full gap-2">
           <Link href="/">

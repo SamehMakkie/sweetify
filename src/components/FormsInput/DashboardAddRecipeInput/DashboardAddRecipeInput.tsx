@@ -14,6 +14,7 @@ const DashboardAddRecipeInput: React.FC<IProps> = ({placeholder, name}) => {
           "flex w-full px-4 py-3 justify-center items-center gap-2 rounded-full bg-secondary hover:bg-lighter-dark-secondary "
         }>
         <input
+          id={name}
           type="text"
           name={name}
           className="w-full text-md bg-transparent outline-none placeholder:text-card-text text-white"

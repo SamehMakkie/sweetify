@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FaPerson } from "react-icons/fa6";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const schema = yup
   .object({
@@ -26,14 +29,21 @@ const NameChangeSection = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const { updateUserProfile } = useAuth();
+  const router = useRouter()
 
   const data = watch();
 
   const handleFullNameChange = async () => {
     try {
       console.log(data.fullName);
+      // change displayName
+      await updateUserProfile(data.fullName);
+      toast.success("Name updated successfully");
+      router.refresh()
     } catch (err) {
       console.log(err);
+      toast.error("Error updating name");
     }
   };
 

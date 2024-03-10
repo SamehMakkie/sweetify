@@ -3,7 +3,7 @@ import React from "react";
 import { RiTimerLine } from "react-icons/ri";
 import { MdDeleteOutline, MdOutlineCake } from "react-icons/md";
 import DeleteRecipeModal from "@/components/Modal/DeleteRecipeModal/DeleteRecipeModal";
-import EditRecipeModal from "@/components/Modal/EditRecipeModal/EditRecipeModal";
+import { useRouter } from "next/navigation";
 
 interface Recipe {
   id: string;
@@ -21,6 +21,7 @@ const DashboardRecipeCard: React.FC<Recipe> = ({
   preparationTime,
 }) => {
   const [isEditModalDisabled, setIsEditModalDisabled] = React.useState(false);
+  const router = useRouter();
 
   const handleEnableEditModal = () => {
     setIsEditModalDisabled(false);
@@ -37,9 +38,7 @@ const DashboardRecipeCard: React.FC<Recipe> = ({
 
   const handleEditModalDisplay = () => {
     if (!isEditModalDisabled) {
-      (
-        document.getElementById(`edit-recipe-modal-${id}`) as HTMLDialogElement
-      )?.showModal();
+      router.push(`/admin/dashboard/recipes/edit/${id}`);
     }
   };
 
@@ -47,7 +46,6 @@ const DashboardRecipeCard: React.FC<Recipe> = ({
     <div
       className="flex justify-center items-center cursor-pointer"
       onClick={handleEditModalDisplay}>
-      <EditRecipeModal id={id} recipeName={name} />
       <div className="max-w-sm rounded-2xl bg-dark-secondary drop-shadow-2xl">
         <div
           tabIndex={0}

@@ -1,4 +1,7 @@
 import React from "react";
+import { useAuth } from "@/context/AuthContext";
+import deleteRecipe from "@/services/deleteRecipe";
+import { toast } from "react-toastify";
 
 interface IProps {
   id: string;
@@ -11,8 +14,15 @@ const DeleteRecipeModal: React.FC<IProps> = ({
   recipeName,
   handleEnableEditModal,
 }) => {
-  const handleDelete = () => {
-    console.log("delete " + recipeName);
+  const { idToken } = useAuth();
+
+  const handleDelete = async () => {
+    const res = await deleteRecipe({ idToken: idToken, recipeId: id });
+    if (res.data) {
+      toast.success("Recipe deleted successfully");
+    } else {
+      toast.error("Failed to delete recipe");
+    }
     handleEnableEditModal();
   };
 

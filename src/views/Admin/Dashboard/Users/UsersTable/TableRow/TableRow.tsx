@@ -1,6 +1,5 @@
-import IconBtn from "@/components/IconBtn/IconBtn";
-import DeleteUserModal from "@/components/Modal/DeleteUserModal/DeleteUserModal";
 import React from "react";
+import DeleteUserModal from "@/components/Modal/DeleteUserModal/DeleteUserModal";
 import { MdDeleteOutline } from "react-icons/md";
 
 interface IProps {

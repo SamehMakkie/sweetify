@@ -1,7 +1,11 @@
 "use client";
+import { useAuth } from "@/context/AuthContext";
+import addRemoveRecipeToMyList from "@/services/addRemoveRecipeToMyList";
+import likeUnlikeRecipe from "@/services/likeRecipe";
 import React, { useState } from "react";
 import { MdLibraryAddCheck, MdOutlineLibraryAdd } from "react-icons/md";
 import { RiHeart3Fill, RiHeart3Line } from "react-icons/ri";
+import { toast } from "react-toastify";
 
 interface IProps {
   id: string;
@@ -10,20 +14,31 @@ interface IProps {
 const RecipeFunctionIcons: React.FC<IProps> = ({ id }) => {
   const [liked, setLiked] = useState(false);
   const [addedToList, setAddedToList] = useState(false);
+  const { idToken } = useAuth();
 
-  const handleLike = () => {
-    console.log("like");
-    setLiked(!liked);
+  const handleLikeBtnClick = async () => {
+    try {
+      await likeUnlikeRecipe({ idToken: idToken, recipeID: id });
+      setLiked(!liked);
+    } catch (error) {
+      toast.error("An error occurred while liking recipe. Please try again later.");
+      console.error(error);
+    }
   };
-  const handleAddToList = () => {
-    console.log("add to list");
-    setAddedToList(!addedToList);
+  const handleAddToListBtnClick = async () => {
+    try {
+      await addRemoveRecipeToMyList({ idToken: idToken, recipeID: id });
+      setAddedToList(!addedToList);
+    } catch (error) {
+      toast.error("An error occurred while adding recipe to list. Please try again later.");
+      console.error(error);
+    }
   };
   return (
     <div className="flex gap-3">
       <div
         className="flex p-5 rounded-full drop-shadow-2xl text-white bg-dark-secondary cursor-pointer hover:scale-110 transition duration-100"
-        onClick={handleLike}>
+        onClick={handleLikeBtnClick}>
         {liked ? (
           <RiHeart3Fill size={20} className="text-error" />
         ) : (
@@ -32,7 +47,7 @@ const RecipeFunctionIcons: React.FC<IProps> = ({ id }) => {
       </div>
       <div
         className="flex p-5 rounded-full drop-shadow-2xl text-white bg-dark-secondary cursor-pointer hover:scale-110 transition duration-100"
-        onClick={handleAddToList}>
+        onClick={handleAddToListBtnClick}>
         {addedToList ? (
           <MdLibraryAddCheck size={20} className="" />
         ) : (

@@ -8,6 +8,9 @@ import {
   sendPasswordResetEmail,
   updateProfile,
   User,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -48,11 +51,10 @@ export const AuthContextProvider = ({
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const updateUserProfile = (displayName: string, photoURL: string) => {
+  const updateUserProfile = (displayName: string) => {
     if (auth.currentUser) {
       return updateProfile(auth.currentUser, {
         displayName,
-        photoURL,
       });
     }
   };
@@ -70,6 +72,30 @@ export const AuthContextProvider = ({
     return sendPasswordResetEmail(auth, email);
   };
 
+  const changePassword = async (
+    currentPassword: string,
+    newPassword: string
+  ) => {
+    console.log("Current");
+
+    console.log(currentPassword);
+    // console.log(newPassword);
+
+    const user = auth.currentUser;
+    if (user) {
+      const credential = EmailAuthProvider.credential(
+        user.email || "",
+        currentPassword
+      );
+      console.log(credential);
+
+      const res = await reauthenticateWithCredential(user, credential);
+      console.log(res);
+
+      await updatePassword(user, newPassword);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -80,6 +106,7 @@ export const AuthContextProvider = ({
         logout,
         updateUserProfile,
         resetPassword,
+        changePassword,
       }}>
       {loading ? (
         <div className="w-screen h-screen flex justify-center items-center">

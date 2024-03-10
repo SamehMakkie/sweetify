@@ -1,4 +1,5 @@
 "use client";
+import searchRecipes from "@/services/searchRecipes";
 import React, { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 
@@ -96,13 +97,10 @@ const DashboardSearchInput: React.FC<IProps> = ({
   setSearchString,
   setSearchResults,
 }) => {
-  const handleSearchStringChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchStringChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchString(e.target.value);
     if (e.target.value !== "") {
-      // get search results
-      const searchResults = dumbData.filter((recipe) => {
-        return recipe.name.toLowerCase().includes(searchString.toLowerCase());
-      });
+      const searchResults = await searchRecipes({ searchString: e.target.value, prepTime: 999, pageNum: 1 });
       setSearchResults(searchResults)
     }
   };

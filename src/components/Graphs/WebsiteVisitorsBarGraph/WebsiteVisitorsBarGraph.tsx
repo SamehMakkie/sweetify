@@ -2,11 +2,15 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-const WebsiteVisitorsBarGraph = () => {
+interface IProps {
+  websiteVisitors: number[];
+}
+
+const WebsiteVisitorsBarGraph: React.FC<IProps> = ({websiteVisitors}) => {
   const series = [
     {
       name: "Website Visitors",
-      data: [30, 40, 45, 50, 49, 60, 70, 91, 125],
+      data: websiteVisitors,
     },
   ];
 
@@ -88,6 +92,7 @@ const WebsiteVisitorsBarGraph = () => {
 
   return (
     <div className="w-full p-5 rounded-2xl bg-dark-secondary drop-shadow-2xl">
+      <h2 className="text-xl text-body-text text-center">Website visitors</h2>
       <Chart options={options} series={series} type="bar" width="100%" />
     </div>
   );

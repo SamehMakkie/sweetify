@@ -20,7 +20,7 @@ const RecipeCard: React.FC<Recipe> = ({
 }) => {
   return (
     <Link href={`/recipes/${id}`} className="flex justify-center items-center">
-      <div className="max-w-sm overflow-hidden rounded-2xl bg-dark-secondary drop-shadow-2xl">
+      <div className="max-w-sm overflow-hidden rounded-2xl bg-dark-secondary drop-shadow-2xl transform transition-transform duration-200 hover:scale-110 active:scale-90">
         <img src={imageSrc} className="w-full rounded-t-2xl bg-cover" />
         <div className="flex p-10 flex-col gap-5 ">
           <h3 className="text-2xl text-primary line-clamp-2">{name}</h3>

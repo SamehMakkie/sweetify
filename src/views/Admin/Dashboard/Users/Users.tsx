@@ -1,32 +1,29 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import UsersTable from "./UsersTable/UsersTable";
 import UsersSearch from "./UsersSearch/UsersSearch";
+import searchUsers from "@/services/searchUsers";
+import { useAuth } from "@/context/AuthContext";
 
-const dumbData = [
-  {
-    uid: "1",
-    identifier: "Cy Ganderton",
-    createdAt: "Jan 16, 2024",
-    lastSignedIn: "Feb 4, 2024",
-  },
-  {
-    uid: "2",
-    identifier: "Hart Hagerty",
-    createdAt: "Desktop Support Technician",
-    lastSignedIn: "Purple",
-  },
-  {
-    uid: "3",
-    identifier: "Brice Swyre",
-    createdAt: "Tax Accountant",
-    lastSignedIn: "Red",
-  },
-];
+interface searchResults {
+  uid: string;
+  identifier: string;
+  createdAt: string;
+  lastSignedIn: string;
+}
 
 const Users = () => {
   const [searchString, setSearchString] = React.useState<string>("");
-  const [searchResults, setSearchResults] = React.useState(dumbData);
+  const [searchResults, setSearchResults] = React.useState<searchResults[]>([]);
+  const { idToken } = useAuth();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await searchUsers({ idToken, searchString, pageNum: 1 });
+      setSearchResults(response);
+    };
+    fetchData();
+  }, [searchString]);
 
   return (
     <div className="w-full flex flex-col p-10 rounded-3xl gap-5">
@@ -37,7 +34,6 @@ const Users = () => {
         <UsersSearch
           searchString={searchString}
           setSearchString={setSearchString}
-          setSearchResults={setSearchResults}
         />
         <UsersTable data={searchResults} />
       </div>

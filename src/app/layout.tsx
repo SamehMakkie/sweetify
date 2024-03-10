@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Alice } from "next/font/google";
 import "./globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const alice = Alice({ weight: "400", subsets: ["latin"] });
 
@@ -19,7 +21,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-secondary">
       <body className={alice.className}>
-          <AuthContextProvider>{children}</AuthContextProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+        />
+        <AuthContextProvider>{children}</AuthContextProvider>
       </body>
     </html>
   );

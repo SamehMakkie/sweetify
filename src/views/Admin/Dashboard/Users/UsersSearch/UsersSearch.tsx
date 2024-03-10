@@ -2,27 +2,6 @@
 import React from "react";
 import { IoIosSearch } from "react-icons/io";
 
-const dumbData = [
-  {
-    uid: "1",
-    identifier: "Cy Ganderton",
-    createdAt: "Jan 16, 2024",
-    lastSignedIn: "Feb 4, 2024",
-  },
-  {
-    uid: "2",
-    identifier: "Hart Hagerty",
-    createdAt: "Desktop Support Technician",
-    lastSignedIn: "Purple",
-  },
-  {
-    uid: "3",
-    identifier: "Brice Swyre",
-    createdAt: "Tax Accountant",
-    lastSignedIn: "Red",
-  },
-];
-
 interface User {
   uid: string;
   identifier: string;
@@ -33,25 +12,11 @@ interface User {
 interface IProps {
   searchString: string;
   setSearchString: React.Dispatch<React.SetStateAction<string>>;
-  setSearchResults: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
-const UsersSearch: React.FC<IProps> = ({
-  searchString,
-  setSearchString,
-  setSearchResults,
-}) => {
+const UsersSearch: React.FC<IProps> = ({ searchString, setSearchString }) => {
   const handleSearchStringChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchString(e.target.value);
-    if (e.target.value !== "") {
-      // get search results
-      const searchResults = dumbData.filter((user) => {
-        return user.identifier.toLowerCase().includes(searchString.toLowerCase());
-      });
-      setSearchResults(searchResults)
-    } else {
-      setSearchResults(dumbData);
-    }
   };
 
   return (

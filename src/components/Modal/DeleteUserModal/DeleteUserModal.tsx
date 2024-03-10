@@ -1,4 +1,7 @@
+import { useAuth } from "@/context/AuthContext";
+import deleteUser from "@/services/deleteUser";
 import React from "react";
+import { toast } from "react-toastify";
 
 interface IProps {
   uid: string;
@@ -6,8 +9,15 @@ interface IProps {
 }
 
 const DeleteUserModal: React.FC<IProps> = ({ uid, userIdentifier }) => {
-  const handleDelete = () => {
-    console.log("User " + userIdentifier + " deleted");
+  const { idToken } = useAuth();
+  const handleDelete = async () => {
+    const response = await deleteUser({ idToken, uid });
+    if (response.data === null) {
+      toast.error(response.errMessage);
+      console.log(response.errMessage);
+      return;
+    }
+    toast.success("User deleted");
     (
       document.getElementById(`delete-user-${uid}-modal`) as HTMLDialogElement
     )?.close();

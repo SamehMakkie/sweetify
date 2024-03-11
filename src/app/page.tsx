@@ -20,16 +20,17 @@ interface ISectionData {
 }
 
 export default async function Home() {
-  const featuredLists = await getHomePageContent();
+  const { data } = await getHomePageContent();
 
   return (
     <section className="flex flex-col w-full min-h-screen items-center">
       <Navbar />
       <Hero />
       <PageSpacer isHomePage={true}>
-        {featuredLists.map((featuredList: ISectionData) => (
-          <ListSection key={featuredList.title} {...featuredList} />
-        ))}
+        {data &&
+          data.map((featuredList: ISectionData) => (
+            <ListSection key={featuredList.title} {...featuredList} />
+          ))}
         <MailsSubscriptionCard />
       </PageSpacer>
       <Footer />

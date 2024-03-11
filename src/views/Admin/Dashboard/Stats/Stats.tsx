@@ -28,7 +28,7 @@ const Stats = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getDashboardStats({ idToken });
+      const {data} = await getDashboardStats({ idToken });
       setStats(data);
     };
     getData();

@@ -35,7 +35,7 @@ const ListSection: React.FC<IProps> = ({
         </div>
       </div>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
-        {recipes.map((recipe) => (
+        {recipes && recipes.map((recipe) => (
           <RecipeCard key={recipe.id} {...recipe} />
         ))}
       </div>

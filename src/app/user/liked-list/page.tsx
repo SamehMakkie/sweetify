@@ -19,8 +19,8 @@ const page = () => {
 
   useEffect(() => {
     const fetchMyList = async () => {
-      const recipes = await getMyLikedList({ idToken });
-      setRecipes(recipes);
+      const { data } = await getMyLikedList({ idToken });
+      setRecipes(data);
     };
     fetchMyList();
   }, []);

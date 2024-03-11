@@ -25,12 +25,12 @@ const Page = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const searchResults = await searchRecipes({
+      const { data } = await searchRecipes({
         searchString: search,
         prepTime: duration,
         pageNum: 1,
       });
-      setSearchResults(searchResults);
+      setSearchResults(data);
     };
 
     let search = searchParams.get("searchString") || "";

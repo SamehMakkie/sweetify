@@ -19,8 +19,8 @@ const Users = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await searchUsers({ idToken, searchString, pageNum: 1 });
-      setSearchResults(response);
+      const { data } = await searchUsers({ idToken, searchString, pageNum: 1 });
+      setSearchResults(data);
     };
     fetchData();
   }, [searchString]);

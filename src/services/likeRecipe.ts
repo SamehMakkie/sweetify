@@ -1,12 +1,5 @@
 import axios from "axios";
 
-interface IFormData {
-  recipeTitle: string;
-  prepTime: string;
-  ingredients: string[];
-  steps: string[];
-}
-
 interface IParams {
   idToken: string;
   recipeID: string;

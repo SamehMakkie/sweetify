@@ -5,11 +5,16 @@ interface IRecipeID {
 }
 
 const getRecipeByID = async ({ id }: IRecipeID) => {
-  const response = await axios.post(
-    process.env.NEXT_PUBLIC_BACKEND_API_URL + "/getRecipeByID", { id }
-  );
-
-  return response.data;
+  try {
+    const response = await axios.post(
+      process.env.NEXT_PUBLIC_BACKEND_API_URL + "/getRecipeByID",
+      { id }
+    );
+    return { data: response.data, status: response.status };
+  } catch (error) {
+    console.error(error);
+    return { data: null, status: "error" };
+  }
 };
 
 export default getRecipeByID;

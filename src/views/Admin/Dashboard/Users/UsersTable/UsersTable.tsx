@@ -26,14 +26,15 @@ const UsersTable: React.FC<dataProps> = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.length === 0 && (
+          {data && data.length === 0 && (
             <tr className="text-center">
               <td colSpan={4}>No data found</td>
             </tr>
           )}
-          {data.map((dataItem: TableRowProps) => (
-            <TableRow key={dataItem.uid} {...dataItem} />
-          ))}
+          {data &&
+            data.map((dataItem: TableRowProps) => (
+              <TableRow key={dataItem.uid} {...dataItem} />
+            ))}
         </tbody>
       </table>
     </div>

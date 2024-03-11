@@ -26,10 +26,14 @@ const editRecipe = async ({ idToken, id, formData, imgURL }: IParams) => {
         },
       }
     );
-    return {data: response.data};
+    return { data: response.data };
   } catch (error) {
     console.error(error);
-    return {data: null, errMessage: "An error occurred while editing recipe. Please try again later."};
+    return {
+      data: null,
+      errMessage:
+        "An error occurred while editing recipe. Please try again later.",
+    };
   }
 };
 

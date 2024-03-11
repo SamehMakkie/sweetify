@@ -11,16 +11,21 @@ const searchUsers = async ({
   searchString,
   pageNum,
 }: ISearchParams) => {
-  const response = await axios.post(
-    process.env.NEXT_PUBLIC_BACKEND_API_URL + "/searchUsers",
-    { searchString, pageNum },
-    {
-      headers: {
-        Authorization: idToken,
-      },
-    }
-  );
-  return response.data;
+  try {
+    const response = await axios.post(
+      process.env.NEXT_PUBLIC_BACKEND_API_URL + "/searchUsers",
+      { searchString, pageNum },
+      {
+        headers: {
+          Authorization: idToken,
+        },
+      }
+    );
+    return { data: response.data, status: response.status };
+  } catch (error) {
+    console.error(error);
+    return { data: null, status: "error" };
+  }
 };
 
 export default searchUsers;

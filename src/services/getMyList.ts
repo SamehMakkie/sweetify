@@ -15,10 +15,10 @@ const getMyList = async ({ idToken }: IIDToken) => {
         },
       }
     );
-    return {data: response.data, status: response.status};
+    return { data: response.data, status: response.status };
   } catch (error) {
     console.error(error);
-    return {data: null, status: 'error'};
+    return { data: null, status: "error" };
   }
 };
 

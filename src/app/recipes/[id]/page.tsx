@@ -21,8 +21,11 @@ interface IProps {
 }
 
 const Recipe: React.FC<IProps> = async ({ params }) => {
+  const { data } = await getRecipeByID({ id: params.id });
 
-  const data: IRecipeData = await getRecipeByID({id: params.id});
+  if (!data) {
+    return <div>Recipe not found</div>;
+  }
 
   return (
     <div className="w-full grid grid-cols-3 gap-x-10 gap-y-16">

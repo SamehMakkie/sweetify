@@ -97,11 +97,17 @@ const DashboardSearchInput: React.FC<IProps> = ({
   setSearchString,
   setSearchResults,
 }) => {
-  const handleSearchStringChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchStringChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchString(e.target.value);
     if (e.target.value !== "") {
-      const searchResults = await searchRecipes({ searchString: e.target.value, prepTime: 999, pageNum: 1 });
-      setSearchResults(searchResults)
+      const { data } = await searchRecipes({
+        searchString: e.target.value,
+        prepTime: 999,
+        pageNum: 1,
+      });
+      setSearchResults(data);
     }
   };
 

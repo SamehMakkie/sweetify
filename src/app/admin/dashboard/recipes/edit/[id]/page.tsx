@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const page: React.FC<IProps> = async ({ params }) => {
-  const data: IRecipeData = await getRecipeByID({ id: params.id });
+  const { data } = await getRecipeByID({ id: params.id });
   const formData = {
     recipeTitle: data.name,
     prepTime: data.preparationTime.toString(),
@@ -29,12 +29,14 @@ const page: React.FC<IProps> = async ({ params }) => {
   return (
     <div className="flex flex-col md:flex-row px-5 md:px-24 py-10 gap-10 justify-between">
       <Sidebar path={"recipes"} />
-      <RecipeForm
-        mode="edit"
-        recipeId={params.id}
-        currentImageURL={data.imageSrc}
-        currentRecipeData={formData}
-      />
+      {data && (
+        <RecipeForm
+          mode="edit"
+          recipeId={params.id}
+          currentImageURL={data.imageSrc}
+          currentRecipeData={formData}
+        />
+      )}
     </div>
   );
 };

@@ -16,10 +16,14 @@ const deleteRecipe = async ({ idToken, recipeId }: IParams) => {
         },
       }
     );
-    return {data: response.data};
+    return { data: response.data };
   } catch (error) {
     console.error(error);
-    return {data: null, errMessage: "An error occurred while deleting recipe. Please try again later."};
+    return {
+      data: null,
+      errMessage:
+        "An error occurred while deleting recipe. Please try again later.",
+    };
   }
 };
 

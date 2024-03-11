@@ -34,7 +34,7 @@ const Recipe: React.FC<IProps> = async ({ params }) => {
         <img
           src={data.imageSrc}
           alt={data.name}
-          className="w-full h-[650px] object-cover rounded-2xl drop-shadow-2xl"
+          className="w-full md:h-[650px] object-cover rounded-2xl drop-shadow-2xl"
         />
       </section>
       <section className="w-full col-span-3 lg:col-span-1 flex flex-col gap-5 justify-center">

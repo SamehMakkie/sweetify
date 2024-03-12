@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const Sidebar: React.FC<IProps> = ({ path }) => {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   return (
     <div className="flex flex-col md:h-screen justify-center">
       <div className="flex flex-row md:flex-col px-5 py-10 gap-5 rounded-2xl justify-center items-center bg-dark-secondary drop-shadow-2xl">

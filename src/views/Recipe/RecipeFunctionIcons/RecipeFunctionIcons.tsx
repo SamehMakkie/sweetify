@@ -2,6 +2,7 @@
 import { useAuth } from "@/context/AuthContext";
 import addRemoveRecipeToMyList from "@/services/addRemoveRecipeToMyList";
 import likeUnlikeRecipe from "@/services/likeRecipe";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { MdLibraryAddCheck, MdOutlineLibraryAdd } from "react-icons/md";
 import { RiHeart3Fill, RiHeart3Line } from "react-icons/ri";
@@ -14,23 +15,38 @@ interface IProps {
 const RecipeFunctionIcons: React.FC<IProps> = ({ id }) => {
   const [liked, setLiked] = useState(false);
   const [addedToList, setAddedToList] = useState(false);
-  const { idToken } = useAuth();
+  const { user, idToken } = useAuth();
+  const router = useRouter();
 
   const handleLikeBtnClick = async () => {
+    if (!user) {
+      toast.error("You need to be logged in to like a recipe");
+      router.push("/login");
+      return;
+    }
     try {
       await likeUnlikeRecipe({ idToken: idToken, recipeID: id });
       setLiked(!liked);
     } catch (error) {
-      toast.error("An error occurred while liking recipe. Please try again later.");
+      toast.error(
+        "An error occurred while liking recipe. Please try again later."
+      );
       console.error(error);
     }
   };
   const handleAddToListBtnClick = async () => {
+    if (!user) {
+      toast.error("You need to be logged in to add a recipe to your list");
+      router.push("/login");
+      return;
+    }
     try {
       await addRemoveRecipeToMyList({ idToken: idToken, recipeID: id });
       setAddedToList(!addedToList);
     } catch (error) {
-      toast.error("An error occurred while adding recipe to list. Please try again later.");
+      toast.error(
+        "An error occurred while adding recipe to list. Please try again later."
+      );
       console.error(error);
     }
   };

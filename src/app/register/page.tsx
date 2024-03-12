@@ -15,7 +15,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Toast from "@/components/Toasts/Toast";
 import { toast } from "react-toastify";
 
 const schema = yup

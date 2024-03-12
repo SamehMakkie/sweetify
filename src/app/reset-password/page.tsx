@@ -8,7 +8,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Toast from "@/components/Toasts/Toast";
 import { toast } from "react-toastify";
 
 const schema = yup
@@ -30,10 +29,11 @@ const page = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { resetPassword } = useAuth();
   const router = useRouter();
 
@@ -59,13 +59,16 @@ const page = () => {
   };
 
   const handleResetPassword = async () => {
+    setIsSubmitting(true);
     const { email } = data;
     try {
       await resetPassword(email);
-      toast.success("A reset password email has been sent to your email address.");
-
+      toast.success(
+        "A reset password email has been sent to your email address."
+      );
       router.push("/login");
     } catch (err: any) {
+      setIsSubmitting(false);
       console.log(err.message);
       toast.error(getFriendlyErrorMessage(err.message));
     }
@@ -95,7 +98,8 @@ const page = () => {
           />
           <button
             type="submit"
-            className="w-full btn rounded-full text-white btn-primary">
+            disabled={!isValid || isSubmitting}
+            className="w-full btn rounded-full text-white btn-primary disabled:bg-primary disabled:text-white disabled:opacity-50">
             Send Reset Email
           </button>
         </form>

@@ -8,7 +8,7 @@ const NavItems = () => {
   const { user } = useAuth();
 
   return (
-    <div className="flex w-full justify-end items-center gap-3">
+    <div className="flex justify-end items-center gap-3">
       {user ? <LoggedInNavItems /> : <NotLoggedInNavItems />}
     </div>
   );

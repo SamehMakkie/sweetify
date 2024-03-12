@@ -38,7 +38,7 @@ const SearchInput = () => {
   };
 
   return (
-    <div className="flex w-full px-4 py-2 col-span-2 sm:col-span-1 justify-center items-center gap-2 rounded-full bg-dark-secondary hover:bg-lighter-dark-secondary">
+    <div className="flex w-full h-fit px-4 py-2 col-span-2 sm:col-span-1 justify-center items-center gap-2 rounded-full bg-dark-secondary hover:bg-lighter-dark-secondary">
       <IoIosSearch className="text-white" size={24} onClick={handleSearch} />
       <input
         className="w-full text-md bg-transparent outline-none text-white"

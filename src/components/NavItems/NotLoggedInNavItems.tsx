@@ -6,10 +6,10 @@ import { CiUser } from "react-icons/ci";
 const NotLoggedInNavItems = () => {
   return (
     <>
-    <div className="hidden sm:block">
+    <div className="hidden sm:flex gap-2">
       <Link href={"/login"}>
         <button className="btn btn-ghost rounded-full text-white hover:bg-lighter-dark-secondary">
-          Log in
+          Login
         </button>
       </Link>
       <Link href={"/register"}>

@@ -8,11 +8,11 @@ interface IProps {
 
 const Logo: React.FC<IProps> = ({
   textSize = "text-4xl",
-  colSpan = "col-span-3 sm:col-span-1",
+  colSpan = "col-span-3 md:col-span-1",
 }) => {
   return (
     <Link href={"/"} className={"w-full " + colSpan}>
-      <p className={"w-full text-primary text-center sm:text-left " + textSize}>
+      <p className={"w-full text-primary text-center md:text-left " + textSize}>
         Sweetify
       </p>
     </Link>

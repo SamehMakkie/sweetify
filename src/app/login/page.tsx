@@ -11,7 +11,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Toast from "@/components/Toasts/Toast";
 import { toast } from "react-toastify";
 
 const schema = yup
@@ -34,6 +33,7 @@ const page = () => {
     resolver: yupResolver(schema),
   });
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
 
@@ -61,6 +61,7 @@ const page = () => {
   };
 
   const handleLogin = async () => {
+    setIsSubmitting(true);
     const { email, password } = data;
 
     try {
@@ -75,6 +76,7 @@ const page = () => {
       }
       router.push("/");
     } catch (err) {
+      setIsSubmitting(false);
       console.log(err);
       toast.error(getFriendlyErrorMessage((err as Error).message));
     }
@@ -115,7 +117,7 @@ const page = () => {
           <ResetPasswordLink />
           <button
             type="submit"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
             className="w-full btn rounded-full text-white btn-primary disabled:bg-primary disabled:text-white disabled:opacity-50">
             Login
           </button>

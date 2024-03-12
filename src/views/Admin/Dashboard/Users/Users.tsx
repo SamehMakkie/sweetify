@@ -26,7 +26,7 @@ const Users = () => {
   }, [searchString]);
 
   return (
-    <div className="w-full flex flex-col p-10 rounded-3xl gap-5">
+    <div className="w-full flex flex-col md:p-10 rounded-3xl gap-5">
       <div className="flex justify-center items-center p-8 rounded-3xl bg-dark-secondary drop-shadow-2xl">
         <h1 className="text-primary text-3xl ">Users</h1>
       </div>

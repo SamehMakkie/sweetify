@@ -62,6 +62,7 @@ const page = () => {
     resolver: yupResolver(schema),
   });
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { signup, updateUserProfile } = useAuth();
   const router = useRouter();
 
@@ -91,6 +92,7 @@ const page = () => {
   };
 
   const handleSignUp = async () => {
+    setIsSubmitting(true);
     const { firstName, lastName, email, password, confirmPass } = data;
 
     try {
@@ -102,6 +104,7 @@ const page = () => {
       toast.success("Account created successfully");
       router.push("/");
     } catch (err) {
+      setIsSubmitting(false);
       console.log(err);
       toast.error(getFriendlyErrorMessage((err as Error).message));
     }
@@ -169,7 +172,8 @@ const page = () => {
           />
           <button
             type="submit"
-            className="w-full btn rounded-full text-white btn-primary">
+            disabled={isSubmitting}
+            className="w-full btn rounded-full text-white btn-primary disabled:bg-primary disabled:text-white disabled:opacity-50">
             Register
           </button>
           <HaveAnAccount

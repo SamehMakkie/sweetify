@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@/components/Avatar/Avatar";
 import NavMenuItems from "./NavMenuItems/NavMenuItems";
 import { CiBoxList } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa6";
 import { MdOutlineAccountCircle } from "react-icons/md";
+import { LuLayoutDashboard } from "react-icons/lu";
 import { MdExitToApp } from "react-icons/md";
 import { useAuth } from "@/context/AuthContext";
 
+
 const NavMenu = () => {
   const { user, logout } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const fetchClaims = async () => {
+      const idTokenResult = await user.getIdTokenResult();
+      if (!idTokenResult.claims.admin) {
+        setIsAdmin(false);
+      } else {
+        setIsAdmin(true);
+      }
+    };
+
+    fetchClaims();
+  }, [user]);
+
   return (
     <div className="dropdown dropdown-hover dropdown-end">
       <div
@@ -32,8 +49,22 @@ const NavMenu = () => {
           Icon={MdOutlineAccountCircle}
           text="Account"
         />
+        {isAdmin && (
+          <NavMenuItems
+            href="/admin/dashboard/stats"
+            Icon={LuLayoutDashboard}
+            text="Dashboard"
+          />
+        )}
         <hr className="w-full h-px bg-primary border-none" />
-        <NavMenuItems href="" Icon={MdExitToApp} text="Logout out" onClick={() => {logout()}} />
+        <NavMenuItems
+          href=""
+          Icon={MdExitToApp}
+          text="Logout out"
+          onClick={() => {
+            logout();
+          }}
+        />
       </ul>
     </div>
   );

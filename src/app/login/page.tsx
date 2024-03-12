@@ -29,7 +29,7 @@ const page = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -115,7 +115,8 @@ const page = () => {
           <ResetPasswordLink />
           <button
             type="submit"
-            className="w-full btn rounded-full text-white btn-primary">
+            disabled={!isValid}
+            className="w-full btn rounded-full text-white btn-primary disabled:bg-primary disabled:text-white disabled:opacity-50">
             Login
           </button>
           <HaveAnAccount
